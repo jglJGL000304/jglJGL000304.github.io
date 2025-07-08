@@ -1,27 +1,43 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="전기전자 엔지니어 포트폴리오">
-    <meta name="keywords" content="전기전자, 엔지니어, 포트폴리오">
-    <meta name="author" content="Your Name">
+    <meta name="description" content="Gyurim Jang - PhD Candidate in Electrical Engineering at KAIST, specializing in Environmental Monitoring and Biomedical Systems">
+    <meta name="keywords" content="Gyurim Jang, KAIST, CO2 Monitoring, Wireless Sensing, Biomedical Systems, Healthcare Technology">
+    <meta name="author" content="Gyurim Jang">
     
-    <title>장규림 - 전기전자 엔지니어 포트폴리오</title>
+    <title>Gyurim Jang | PhD Candidate - KAIST EE</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* CSS 변수 정의 - 유지보수성 향상 */
+        /* Pastel Color Palette */
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --text-color: #333;
-            --bg-color: #f4f4f4;
-            --white: #ffffff;
+            --bg-white: #ffffff;
+            --bg-light: #fafbfc;
+            --text-primary: #2c3e50;
+            --text-secondary: #5a6c7d;
+            --text-light: #94a3b8;
+            
+            /* Pastel Project Colors */
+            --pastel-green: #a8e6cf;
+            --pastel-green-dark: #7fcdbb;
+            --pastel-pink: #ffd3d3;
+            --pastel-pink-dark: #ffb6b6;
+            --pastel-blue: #c7e9ff;
+            --pastel-blue-dark: #a6d8f4;
+            --pastel-purple: #e0c3fc;
+            --pastel-yellow: #fff3b8;
+            
+            --border-light: #e5e7eb;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.08);
+            
             --transition: all 0.3s ease;
         }
         
-        /* 기본 스타일 리셋 */
         * {
             margin: 0;
             padding: 0;
@@ -29,451 +45,562 @@
         }
         
         body {
-            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-white);
+            color: var(--text-primary);
             line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
+            overflow-x: hidden;
         }
         
-        /* 컨테이너 */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* 헤더 스타일 */
+        /* Header */
         header {
-            background-color: var(--primary-color);
-            color: var(--white);
+            background-color: var(--bg-white);
             padding: 1rem 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-sm);
         }
         
         nav ul {
             list-style: none;
             display: flex;
             justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+        
+        nav a:hover {
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--pastel-blue) 0%, var(--pastel-green) 50%, var(--pastel-pink) 100%);
+            position: relative;
+            padding-top: 80px;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.2) 0%, transparent 50%);
+        }
+        
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+            box-shadow: var(--shadow-lg);
+            backdrop-filter: blur(10px);
+            max-width: 600px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .keywords {
+            display: flex;
             flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin: 1.5rem 0;
         }
         
-        nav ul li {
-            margin: 0 20px;
+        .keyword {
+            background: var(--bg-white);
+            color: var(--text-secondary);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
         }
         
-        nav ul li a {
-            color: var(--white);
+        .keyword:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .hero-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
             text-decoration: none;
             transition: var(--transition);
-            padding: 5px 10px;
-            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
-        nav ul li a:hover {
-            background-color: var(--secondary-color);
+        .btn-primary {
+            background: var(--text-primary);
+            color: white;
         }
         
-        /* 메인 컨텐츠 */
-        main {
-            margin-top: 80px;
-            padding: 20px 0;
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
         }
         
-        /* 섹션 스타일 */
+        .btn-secondary {
+            background: var(--bg-white);
+            color: var(--text-primary);
+            border: 2px solid var(--border-light);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--bg-light);
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Section Styles */
         section {
-            background-color: var(--white);
-            margin: 20px 0;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 5rem 0;
         }
         
-        h1, h2, h3 {
-            margin-bottom: 20px;
-            color: var(--primary-color);
-        }
-        
-        h1 {
+        .section-title {
             font-size: 2.5rem;
             text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-primary);
+            font-weight: 700;
         }
         
-        h2 {
-            font-size: 2rem;
-            border-bottom: 2px solid var(--secondary-color);
-            padding-bottom: 10px;
+        /* About Section */
+        .about {
+            background: var(--bg-light);
         }
         
-        /* 프로필 섹션 */
-        .profile {
-            text-align: center;
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
         }
         
         .profile-img {
             width: 200px;
             height: 200px;
+            background: linear-gradient(135deg, var(--pastel-purple), var(--pastel-pink));
             border-radius: 50%;
-            margin: 20px auto;
-            background-color: var(--secondary-color);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--white);
-            font-size: 3rem;
+            font-size: 4rem;
+            color: white;
+            box-shadow: var(--shadow-lg);
         }
         
-        /* 스킬 그리드 */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
         }
         
-        .skill-item {
-            background-color: var(--bg-color);
-            padding: 20px;
-            border-radius: 8px;
-            transition: var(--transition);
-        }
-        
-        .skill-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        /* 프로젝트 카드 */
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-        
-        .project-card {
-            background-color: var(--bg-color);
-            padding: 25px;
-            border-radius: 8px;
-            transition: var(--transition);
-        }
-        
-        .project-card:hover {
-            transform: scale(1.02);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-        }
-        
-        .project-card h3 {
-            color: var(--secondary-color);
-            margin-bottom: 10px;
-        }
-        
-        /* 타임라인 스타일 */
-        .timeline {
-            position: relative;
-            padding: 20px 0;
-        }
-        
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background-color: var(--secondary-color);
+        .education-timeline {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-white);
+            border-radius: 15px;
+            box-shadow: var(--shadow-sm);
         }
         
         .timeline-item {
+            padding: 0.8rem 0;
+            border-left: 3px solid var(--pastel-blue);
+            padding-left: 1.5rem;
+            margin-left: 0.5rem;
+        }
+        
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-card {
+            background: var(--bg-white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .project-header {
+            padding: 2rem;
+            color: var(--text-primary);
             position: relative;
-            padding: 20px;
-            width: 50%;
-            margin-bottom: 30px;
+            overflow: hidden;
         }
         
-        .timeline-item:nth-child(odd) {
-            left: 0;
-            text-align: right;
-            padding-right: 40px;
+        .project-card.co2 .project-header {
+            background: linear-gradient(135deg, var(--pastel-green), var(--pastel-green-dark));
         }
         
-        .timeline-item:nth-child(even) {
-            left: 50%;
-            padding-left: 40px;
+        .project-card.senior .project-header {
+            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-pink-dark));
         }
         
-        .timeline-dot {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: var(--accent-color);
-            border-radius: 50%;
-            top: 25px;
+        .project-card.military .project-header {
+            background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-blue-dark));
         }
         
-        .timeline-item:nth-child(odd) .timeline-dot {
-            right: -10px;
+        .project-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
         }
         
-        .timeline-item:nth-child(even) .timeline-dot {
-            left: -10px;
+        .project-content {
+            padding: 2rem;
         }
         
-        /* 연락처 섹션 */
-        .contact-info {
-            text-align: center;
+        .project-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .project-content p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        
+        .project-status {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .status-published {
+            background: rgba(168, 230, 207, 0.2);
+            color: #22a06b;
+        }
+        
+        .status-completed {
+            background: rgba(255, 211, 211, 0.2);
+            color: #e74c3c;
+        }
+        
+        .status-ongoing {
+            background: rgba(199, 233, 255, 0.2);
+            color: #3498db;
+        }
+        
+        /* Publications */
+        .publications {
+            background: var(--bg-light);
+        }
+        
+        .publication-item {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--pastel-green);
+        }
+        
+        .publication-item h4 {
             font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
         }
         
-        .contact-info a {
-            color: var(--secondary-color);
+        .journal-info {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .doi-link {
+            color: #22a06b;
             text-decoration: none;
-            margin: 0 10px;
+            font-weight: 500;
         }
         
-        .contact-info a:hover {
+        .doi-link:hover {
             text-decoration: underline;
         }
         
-        /* 푸터 */
-        footer {
-            background-color: var(--primary-color);
-            color: var(--white);
+        /* Contact */
+        .contact {
             text-align: center;
-            padding: 20px 0;
-            margin-top: 40px;
+            padding: 4rem 0;
         }
         
-        /* 반응형 디자인 */
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: var(--bg-light);
+            border-radius: 25px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: var(--transition);
+            border: 1px solid var(--border-light);
+        }
+        
+        .contact-link:hover {
+            background: var(--bg-white);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--bg-light);
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
         @media (max-width: 768px) {
-            nav ul {
-                flex-direction: column;
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
                 text-align: center;
             }
             
-            nav ul li {
-                margin: 5px 0;
+            .profile-img {
+                margin: 0 auto;
             }
             
-            .timeline::before {
-                left: 20px;
+            .projects-grid {
+                grid-template-columns: 1fr;
             }
             
-            .timeline-item {
-                width: 100%;
-                left: 0 !important;
-                padding-left: 60px !important;
-                padding-right: 20px !important;
-                text-align: left !important;
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
             }
             
-            .timeline-dot {
-                left: 10px !important;
-            }
-            
-            section {
-                padding: 20px;
-            }
-        }
-        
-        /* 인쇄 스타일 */
-        @media print {
-            header, footer {
-                display: none;
-            }
-            
-            main {
-                margin-top: 0;
-            }
-            
-            section {
-                box-shadow: none;
-                border: 1px solid #ddd;
+            nav ul {
+                flex-wrap: wrap;
+                gap: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 헤더 네비게이션 -->
+    <!-- Navigation -->
     <header>
         <nav>
             <ul>
-                <li><a href="#about">소개</a></li>
-                <li><a href="#skills">기술 스택</a></li>
-                <li><a href="#projects">프로젝트</a></li>
-                <li><a href="#experience">경력</a></li>
-                <li><a href="#education">학력</a></li>
-                <li><a href="#contact">연락처</a></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#publications">Publications</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- 메인 컨텐츠 -->
-    <main>
-        <div class="container">
-            <!-- 프로필 섹션 -->
-            <section id="about" class="profile">
-                <h1>장규림</h1>
-                <div class="profile-img">프로필</div>
-                <h3>전기전자 시스템 엔지니어</h3>
-                <p>Environmental System/Biomedical System Design<br>
-                임베디드 시스템, 전력 전자, IoT 솔루션 개발에 특화되어 있습니다.</p>
-            </section>
-
-            <!-- 기술 스택 섹션 -->
-            <section id="skills">
-                <h2>기술 스택</h2>
-                <div class="skills-grid">
-                    <div class="skill-item">
-                        <h3>하드웨어 설계</h3>
-                        <ul>
-                            <li>회로 설계 (Altium Designer, KiCad)</li>
-                            <li>PCB 레이아웃 및 최적화</li>
-                            <li>EMC/EMI 대책 설계</li>
-                            <li>전력 전자 회로 설계</li>
-                        </ul>
-                    </div>
-                    <div class="skill-item">
-                        <h3>임베디드 시스템</h3>
-                        <ul>
-                            <li>ARM Cortex-M/A 시리즈</li>
-                            <li>RTOS (FreeRTOS, Zephyr)</li>
-                            <li>C/C++ 프로그래밍</li>
-                            <li>디바이스 드라이버 개발</li>
-                        </ul>
-                    </div>
-                    <div class="skill-item">
-                        <h3>통신 프로토콜</h3>
-                        <ul>
-                            <li>CAN, RS-485, I2C, SPI</li>
-                            <li>Ethernet, TCP/IP</li>
-                            <li>Bluetooth, Wi-Fi</li>
-                            <li>Modbus, MQTT</li>
-                        </ul>
-                    </div>
-                    <div class="skill-item">
-                        <h3>시뮬레이션 및 분석</h3>
-                        <ul>
-                            <li>SPICE 시뮬레이션</li>
-                            <li>MATLAB/Simulink</li>
-                            <li>신호 처리 및 분석</li>
-                            <li>열 해석 및 최적화</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 프로젝트 섹션 -->
-            <section id="projects">
-                <h2>주요 프로젝트</h2>
-                <div class="project-grid">
-                    <div class="project-card">
-                        <h3>스마트 그리드 제어 시스템</h3>
-                        <p><strong>기간:</strong> 2023.01 - 2024.06</p>
-                        <p><strong>역할:</strong> 시스템 아키텍트 및 리드 엔지니어</p>
-                        <p><strong>기술:</strong> ARM Cortex-A53, Linux, MQTT, Modbus</p>
-                        <p>분산 전력 관리를 위한 실시간 제어 시스템 개발. 
-                        에너지 효율 35% 개선 및 시스템 안정성 99.9% 달성.</p>
-                    </div>
-                    <div class="project-card">
-                        <h3>산업용 IoT 센서 네트워크</h3>
-                        <p><strong>기간:</strong> 2022.03 - 2022.12</p>
-                        <p><strong>역할:</strong> 하드웨어 설계 엔지니어</p>
-                        <p><strong>기술:</strong> STM32, LoRaWAN, 저전력 설계</p>
-                        <p>공장 환경 모니터링을 위한 무선 센서 네트워크 구축. 
-                        배터리 수명 5년 이상, 1000개 노드 동시 관리.</p>
-                    </div>
-                    <div class="project-card">
-                        <h3>전기차 충전 컨트롤러</h3>
-                        <p><strong>기간:</strong> 2021.06 - 2022.02</p>
-                        <p><strong>역할:</strong> 전력전자 설계 책임자</p>
-                        <p><strong>기술:</strong> GaN FET, DSP, CAN 통신</p>
-                        <p>고효율 DC-DC 컨버터 설계 및 충전 프로토콜 구현. 
-                        충전 효율 96% 달성, 충전 시간 40% 단축.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 경력 섹션 -->
-            <section id="experience">
-                <h2>경력 사항</h2>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <h3>수석 엔지니어</h3>
-                        <p><strong>ABC 전자</strong> | 2020 - 현재</p>
-                        <p>차세대 전력 시스템 개발팀 리더<br>
-                        스마트 그리드 및 신재생 에너지 통합 솔루션 개발</p>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <h3>책임 연구원</h3>
-                        <p><strong>XYZ 연구소</strong> | 2015 - 2020</p>
-                        <p>임베디드 시스템 연구개발<br>
-                        산업용 IoT 플랫폼 아키텍처 설계</p>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <h3>선임 엔지니어</h3>
-                        <p><strong>DEF 테크</strong> | 2010 - 2015</p>
-                        <p>전력전자 회로 설계 및 최적화<br>
-                        모터 드라이브 및 인버터 개발</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 학력 섹션 -->
-            <section id="education">
-                <h2>학력</h2>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <h3>공학박사 - 전기전자공학</h3>
-                        <p><strong>서울대학교</strong> | 2006 - 2010</p>
-                        <p>논문: 고효율 전력변환 시스템의 최적화 기법 연구</p>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <h3>공학석사 - 전자공학</h3>
-                        <p><strong>KAIST</strong> | 2004 - 2006</p>
-                        <p>논문: 임베디드 시스템을 위한 실시간 운영체제 설계</p>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <h3>공학사 - 전기공학</h3>
-                        <p><strong>연세대학교</strong> | 2000 - 2004</p>
-                        <p>전공 수석 졸업</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 연락처 섹션 -->
-            <section id="contact">
-                <h2>연락처</h2>
-                <div class="contact-info">
-                    <p>프로젝트 협업 및 기술 자문 환영합니다.</p>
-                    <p>
-                        <a href="mailto:hong@example.com">📧 jgl0304@kaist.ac.kr</a>
-                        <a href="tel:010-1234-5678">📱 010-2612-1638</a>
-                        <a href="https://linkedin.com/in/hong" target="_blank">💼 LinkedIn</a>
-                        <a href="https://github.com/jglJGL000304" target="_blank">💻 GitHub</a>
-                    </p>
-                </div>
-            </section>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Gyurim Jang</h1>
+            <p class="subtitle">PhD Candidate · KAIST School of Electrical Engineering</p>
+            
+            <div class="keywords">
+                <span class="keyword">🌱 Environmental Monitoring</span>
+                <span class="keyword">❤️ Biomedical Systems</span>
+                <span class="keyword">📡 Wireless Sensing</span>
+                <span class="keyword">🔬 IoT Solutions</span>
+            </div>
+            
+            <div class="hero-links">
+                <a href="#projects" class="btn btn-primary">
+                    <span>View Projects</span> →
+                </a>
+                <a href="#contact" class="btn btn-secondary">
+                    <span>Contact</span> ✉️
+                </a>
+            </div>
         </div>
-    </main>
+    </section>
 
-    <!-- 푸터 -->
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="profile-img">GJ</div>
+                <div class="about-text">
+                    <p>I am a PhD candidate at KAIST School of Electrical Engineering, specializing in environmental monitoring and biomedical systems. My research focuses on developing innovative wireless sensing solutions for real-world applications.</p>
+                    
+                    <div class="education-timeline">
+                        <h4 style="margin-bottom: 1rem;">Education</h4>
+                        <div class="timeline-item">
+                            <strong>PhD in Electrical Engineering</strong> - KAIST (Current)
+                        </div>
+                        <div class="timeline-item">
+                            <strong>MS in Electrical Engineering</strong> - KAIST (Spring 2025)
+                        </div>
+                        <div class="timeline-item">
+                            <strong>BS</strong> - DGIST (Graduated: Feb 16, 2023)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Research Projects</h2>
+            <div class="projects-grid">
+                <!-- CO2 Project -->
+                <div class="project-card co2" onclick="location.href='co2-project.html'">
+                    <div class="project-header">
+                        <div class="project-icon">🌍</div>
+                        <h3>Self-Powered Wireless CO₂ Monitoring</h3>
+                    </div>
+                    <div class="project-content">
+                        <span class="project-status status-published">Published</span>
+                        <p>Designed and implemented a BLE-based wireless CO₂ sensing system powered by vibration energy harvesting.</p>
+                    </div>
+                </div>
+
+                <!-- Senior Care Project -->
+                <div class="project-card senior" onclick="location.href='senior-care.html'">
+                    <div class="project-header">
+                        <div class="project-icon">❤️</div>
+                        <h3>Healthcare Monitoring for Elderly</h3>
+                    </div>
+                    <div class="project-content">
+                        <span class="project-status status-completed">Completed</span>
+                        <p>Multi-modal physiological monitoring system with real-time SpO₂ and heart rate analysis.</p>
+                    </div>
+                </div>
+
+                <!-- Military Project -->
+                <div class="project-card military" onclick="location.href='military-health.html'">
+                    <div class="project-header">
+                        <div class="project-icon">🛡️</div>
+                        <h3>Military Health Monitoring</h3>
+                    </div>
+                    <div class="project-content">
+                        <span class="project-status status-ongoing">In Progress</span>
+                        <p>— Coming Soon —</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Publications Section -->
+    <section id="publications" class="publications">
+        <div class="container">
+            <h2 class="section-title">Publications</h2>
+            <div class="publication-item">
+                <h4>Highly compact inertia-driven triboelectric nanogenerator for self-powered wireless CO₂ monitoring via fine-vibration harvesting</h4>
+                <p class="journal-info">
+                    <strong>Nano Energy</strong> (IF: 16.8) | June 2025<br>
+                    <em>G. Jang*, D.M. Tiruneh*, et al. (*Co-first) | Corresponding: K.-H. Kwon</em>
+                </p>
+                <a href="https://doi.org/10.1016/j.nanoen.2025.110872" class="doi-link" target="_blank">
+                    DOI: 10.1016/j.nanoen.2025.110872
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Contact</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem;">Feel free to reach out for collaborations or inquiries</p>
+            <div class="contact-links">
+                <a href="mailto:gyurim@kaist.ac.kr" class="contact-link">
+                    <span>📧</span> Email
+                </a>
+                <a href="https://github.com/jglJGL000304" class="contact-link" target="_blank">
+                    <span>💻</span> GitHub
+                </a>
+                <a href="#" class="contact-link">
+                    <span>🔗</span> LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2025 홍길동. All rights reserved. | Powered by GitHub Pages</p>
+        <p>&copy; 2025 Gyurim Jang · KAIST School of Electrical Engineering</p>
     </footer>
 
-    <!-- JavaScript -->
     <script>
-        // 부드러운 스크롤 구현
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -487,32 +614,20 @@
             });
         });
 
-        // 스크롤 시 헤더 스타일 변경
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.backgroundColor = 'rgba(44, 62, 80, 0.95)';
-            } else {
-                header.style.backgroundColor = 'var(--primary-color)';
-            }
+        // Add floating animation to keywords
+        document.querySelectorAll('.keyword').forEach((keyword, index) => {
+            keyword.style.animation = `float ${3 + index * 0.5}s ease-in-out infinite`;
         });
 
-        // 페이지 로드 시 애니메이션
-        window.addEventListener('load', function() {
-            const sections = document.querySelectorAll('section');
-            sections.forEach((section, index) => {
-                setTimeout(() => {
-                    section.style.opacity = '0';
-                    section.style.transform = 'translateY(20px)';
-                    section.style.transition = 'all 0.5s ease';
-                    
-                    setTimeout(() => {
-                        section.style.opacity = '1';
-                        section.style.transform = 'translateY(0)';
-                    }, 100);
-                }, index * 100);
-            });
-        });
+        // Add float animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-10px); }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
