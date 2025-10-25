@@ -3,69 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Military Personnel Health Monitoring System - Ongoing Research Project">
-    <title>Military Health Monitoring - Gyurim Jang</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <meta name="description" content="Military Health Monitoring System - Research by Gyurim Jang at KAIST">
+    <title>Military Health System | Gyurim Jang - KAIST Research</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
     <style>
         :root {
-            --bg-white: #ffffff;
-            --bg-light: #fafbfc;
-            --text-primary: #2c3e50;
-            --text-secondary: #5a6c7d;
-            
-            /* Pastel Blue Theme */
-            --pastel-blue: #c7e9ff;
-            --pastel-blue-light: #e0f2ff;
-            --pastel-blue-dark: #a6d8f4;
-            --accent-blue: #3498db;
-            
-            --border-light: #e5e7eb;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-            --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
-            --shadow-lg: 0 10px 15px rgba(0,0,0,0.08);
-            
-            --transition: all 0.3s ease;
+            --primary-blue: #1e40af;
+            --accent-blue: #3b82f6;
+            --dark-blue: #1e3a8a;
+            --light-blue: #dbeafe;
+            --neutral-slate: #475569;
+            --light-gray: #f8fafc;
+
+            --gradient-military: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            --gradient-tech: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 40px rgba(0,0,0,0.15);
+
+            --font-heading: 'IBM Plex Sans', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
         }
-        
+
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --border-color: #475569;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --border-color: #e2e8f0;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg-white);
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
-        
+
         /* Navigation */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--bg-primary);
             backdrop-filter: blur(10px);
             z-index: 1000;
             padding: 1rem 0;
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow-md);
         }
-        
+
         .nav-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0 2rem;
         }
-        
+
         .back-btn {
             display: flex;
             align-items: center;
@@ -73,178 +95,829 @@
             color: var(--text-secondary);
             text-decoration: none;
             font-weight: 500;
-            transition: var(--transition);
+            transition: all 0.3s ease;
             padding: 0.5rem 1rem;
             border-radius: 20px;
+            border: 2px solid var(--border-color);
         }
-        
+
         .back-btn:hover {
-            background: var(--bg-light);
-            color: var(--accent-blue);
+            color: var(--primary-blue);
+            border-color: var(--primary-blue);
+            transform: translateX(-5px);
         }
-        
-        /* Main Content */
-        main {
-            flex: 1;
+
+        .theme-toggle {
+            background: transparent;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary-blue);
+            transform: rotate(180deg);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-military);
+            position: relative;
             margin-top: 60px;
-            background: linear-gradient(135deg, var(--pastel-blue-light) 0%, var(--pastel-blue) 100%);
+            overflow: hidden;
         }
-        
-        .content-box {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 4rem;
-            border-radius: 30px;
-            box-shadow: var(--shadow-lg);
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10h80v80H10z' fill='none' stroke='%23ffffff' stroke-width='0.5' opacity='0.1'/%3E%3C/svg%3E") repeat;
+            animation: grid-move 20s linear infinite;
+        }
+
+        @keyframes grid-move {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(100px, 100px); }
+        }
+
+        .hero-content {
             text-align: center;
-            max-width: 600px;
-            width: 100%;
+            z-index: 2;
+            max-width: 1000px;
+            padding: 3rem;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            box-shadow: var(--shadow-xl);
         }
-        
-        .project-icon {
-            font-size: 4rem;
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark-blue);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--neutral-slate);
             margin-bottom: 2rem;
+        }
+
+        .status-badge {
             display: inline-block;
-            animation: float 3s ease-in-out infinite;
+            background: var(--light-blue);
+            color: var(--dark-blue);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 2px solid var(--primary-blue);
+            animation: pulse 2s infinite;
         }
-        
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
         }
-        
-        h1 {
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
             font-size: 2.5rem;
             margin-bottom: 1rem;
             color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
-        
-        .subtitle {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
+
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-military);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: var(--shadow-md);
         }
-        
-        .status-badge {
-            display: inline-block;
-            background: rgba(52, 152, 219, 0.1);
-            color: var(--accent-blue);
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
-            font-weight: 600;
-            border: 2px solid var(--accent-blue);
-            margin-bottom: 2rem;
+
+        /* Coming Soon Section */
+        .coming-soon-section {
+            background: var(--bg-secondary);
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        
-        .coming-soon {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            font-style: italic;
-            margin: 2rem 0;
+
+        .coming-soon-content {
+            text-align: center;
+            max-width: 800px;
         }
-        
+
+        .progress-container {
+            margin: 3rem 0;
+        }
+
         .progress-dots {
             display: flex;
             justify-content: center;
             gap: 1rem;
-            margin-top: 3rem;
+            margin-bottom: 2rem;
         }
-        
-        .dot {
-            width: 12px;
-            height: 12px;
+
+        .progress-dot {
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
-            background: var(--pastel-blue-dark);
-            animation: pulse 1.5s ease-in-out infinite;
+            background: var(--border-color);
+            position: relative;
         }
-        
-        .dot:nth-child(2) {
-            animation-delay: 0.3s;
+
+        .progress-dot.active {
+            background: var(--gradient-military);
+            animation: dot-pulse 1.5s infinite;
         }
-        
-        .dot:nth-child(3) {
-            animation-delay: 0.6s;
-        }
-        
-        @keyframes pulse {
+
+        @keyframes dot-pulse {
             0%, 100% {
-                opacity: 0.3;
                 transform: scale(1);
+                opacity: 1;
             }
             50% {
-                opacity: 1;
                 transform: scale(1.2);
+                opacity: 0.8;
             }
         }
-        
-        /* Footer */
-        footer {
-            padding: 2rem;
-            text-align: center;
+
+        .progress-label {
             color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Vision Section */
+        .vision-section {
+            position: relative;
+        }
+
+        .vision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .vision-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .vision-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--gradient-tech);
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .vision-card:hover::before {
+            opacity: 1;
+        }
+
+        .vision-card:hover {
+            transform: translateY(-5px);
+            border-color: transparent;
+        }
+
+        .vision-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-military);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .vision-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .vision-desc {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Technology Stack */
+        .tech-section {
+            background: var(--bg-secondary);
+        }
+
+        .tech-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .tech-category {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .tech-category-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            background: var(--gradient-tech);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .tech-category-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .tech-list {
+            list-style: none;
+            text-align: left;
+        }
+
+        .tech-item {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tech-item::before {
+            content: '▸';
+            color: var(--accent-blue);
+            font-weight: bold;
+        }
+
+        /* Challenges Section */
+        .challenges-section {
+            position: relative;
+        }
+
+        .challenge-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .challenge-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .challenge-card:hover {
+            box-shadow: var(--shadow-xl);
+            transform: translateX(10px);
+        }
+
+        .challenge-number {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-military);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .challenge-content {
+            flex: 1;
+        }
+
+        .challenge-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .challenge-desc {
+            color: var(--text-secondary);
+        }
+
+        /* Roadmap Section */
+        .roadmap-section {
+            background: var(--bg-secondary);
+        }
+
+        .roadmap-timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .roadmap-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gradient-military);
+            transform: translateX(-50%);
+        }
+
+        .roadmap-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .roadmap-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .roadmap-content {
+            width: 45%;
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .roadmap-dot {
+            width: 20px;
+            height: 20px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 4px solid var(--bg-secondary);
+            z-index: 2;
+        }
+
+        .roadmap-date {
+            font-weight: 600;
+            color: var(--accent-blue);
+            margin-bottom: 0.5rem;
             font-size: 0.9rem;
-            background: var(--bg-light);
+        }
+
+        .roadmap-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .roadmap-desc {
+            color: var(--text-secondary);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            text-align: center;
+            padding: 4rem 0;
+            background: var(--gradient-military);
+            color: white;
+        }
+
+        .contact-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-desc {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            color: var(--primary-blue);
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .vision-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-categories {
+                grid-template-columns: 1fr;
+            }
+
+            .challenge-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .roadmap-line {
+                left: 20px;
+            }
+
+            .roadmap-item {
+                flex-direction: column;
+                margin-left: 40px;
+            }
+
+            .roadmap-item:nth-child(even) {
+                flex-direction: column;
+            }
+
+            .roadmap-content {
+                width: 100%;
+            }
+
+            .roadmap-dot {
+                left: 20px;
+            }
         }
     </style>
 </head>
-<body>
+<body data-theme="light">
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
             <a href="index.html" class="back-btn">
-                <span>←</span> Back to Portfolio
+                ← Back to Portfolio
             </a>
-            <div style="color: var(--accent-blue); font-weight: 600;">
-                Military Health Monitoring
-            </div>
+            <button class="theme-toggle" id="themeToggle">🌙</button>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main>
-        <div class="content-box">
-            <div class="project-icon">🛡️</div>
-            <h1>Military Health Monitoring</h1>
-            <p class="subtitle">
-                Advanced physiological monitoring for defense applications
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content" data-aos="fade-up">
+            <h1 class="hero-title">Military Health Monitoring System</h1>
+            <p class="hero-subtitle">
+                Next-generation physiological monitoring for extreme operational environments
             </p>
-            <span class="status-badge">In Development</span>
-            
-            <p class="coming-soon">
-                — Details Coming Soon —
-            </p>
-            
-            <div class="progress-dots">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
+            <span class="status-badge">🚧 In Development</span>
+        </div>
+    </section>
+
+    <!-- Coming Soon Section -->
+    <section class="coming-soon-section">
+        <div class="container">
+            <div class="coming-soon-content" data-aos="fade-up">
+                <h2 style="font-size: 2rem; margin-bottom: 1rem;">Project Under Development</h2>
+                <p style="color: var(--text-secondary); font-size: 1.1rem;">
+                    This cutting-edge research project is currently in the development phase.
+                    We are working on revolutionary health monitoring solutions specifically designed
+                    for military personnel operating in challenging conditions.
+                </p>
+                <div class="progress-container">
+                    <div class="progress-dots">
+                        <div class="progress-dot active"></div>
+                        <div class="progress-dot active"></div>
+                        <div class="progress-dot active"></div>
+                        <div class="progress-dot"></div>
+                        <div class="progress-dot"></div>
+                    </div>
+                    <p class="progress-label">Phase 3 of 5: System Integration</p>
+                </div>
             </div>
         </div>
-    </main>
+    </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Gyurim Jang · KAIST School of Electrical Engineering</p>
-    </footer>
+    <!-- Vision Section -->
+    <section class="vision-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                <div class="section-icon">🎯</div>
+                Project Vision
+            </h2>
+            <div class="vision-grid">
+                <div class="vision-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="vision-icon">💪</div>
+                    <h3 class="vision-title">Extreme Durability</h3>
+                    <p class="vision-desc">
+                        Building ruggedized sensors capable of withstanding harsh environmental
+                        conditions including extreme temperatures, humidity, and physical stress.
+                    </p>
+                </div>
+                <div class="vision-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="vision-icon">⚡</div>
+                    <h3 class="vision-title">Real-time Monitoring</h3>
+                    <p class="vision-desc">
+                        Continuous physiological tracking with sub-second latency for critical
+                        health parameters during high-intensity operations.
+                    </p>
+                </div>
+                <div class="vision-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="vision-icon">🤖</div>
+                    <h3 class="vision-title">Predictive Analytics</h3>
+                    <p class="vision-desc">
+                        AI-powered algorithms to predict fatigue, dehydration, and stress levels
+                        before they impact operational performance.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Stack -->
+    <section class="tech-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                <div class="section-icon">🔧</div>
+                Planned Technologies
+            </h2>
+            <div class="tech-categories">
+                <div class="tech-category" data-aos="fade-up" data-aos-delay="100">
+                    <div class="tech-category-icon">📡</div>
+                    <h3 class="tech-category-title">Sensors</h3>
+                    <ul class="tech-list">
+                        <li class="tech-item">Multi-wavelength PPG</li>
+                        <li class="tech-item">9-axis IMU</li>
+                        <li class="tech-item">Galvanic skin response</li>
+                        <li class="tech-item">Core temperature</li>
+                    </ul>
+                </div>
+                <div class="tech-category" data-aos="fade-up" data-aos-delay="200">
+                    <div class="tech-category-icon">🌐</div>
+                    <h3 class="tech-category-title">Communication</h3>
+                    <ul class="tech-list">
+                        <li class="tech-item">Mesh networking</li>
+                        <li class="tech-item">LoRa long-range</li>
+                        <li class="tech-item">Encrypted BLE 5.2</li>
+                        <li class="tech-item">Satellite backup</li>
+                    </ul>
+                </div>
+                <div class="tech-category" data-aos="fade-up" data-aos-delay="300">
+                    <div class="tech-category-icon">🧠</div>
+                    <h3 class="tech-category-title">AI/ML</h3>
+                    <ul class="tech-list">
+                        <li class="tech-item">Edge computing</li>
+                        <li class="tech-item">Federated learning</li>
+                        <li class="tech-item">Anomaly detection</li>
+                        <li class="tech-item">Pattern recognition</li>
+                    </ul>
+                </div>
+                <div class="tech-category" data-aos="fade-up" data-aos-delay="400">
+                    <div class="tech-category-icon">🔋</div>
+                    <h3 class="tech-category-title">Power</h3>
+                    <ul class="tech-list">
+                        <li class="tech-item">Energy harvesting</li>
+                        <li class="tech-item">Solar integration</li>
+                        <li class="tech-item">Ultra-low power MCU</li>
+                        <li class="tech-item">Smart power management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Challenges Section -->
+    <section class="challenges-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                <div class="section-icon">⚠️</div>
+                Research Challenges
+            </h2>
+            <div class="challenge-cards">
+                <div class="challenge-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="challenge-number">1</div>
+                    <div class="challenge-content">
+                        <h3 class="challenge-title">Environmental Resilience</h3>
+                        <p class="challenge-desc">
+                            Developing sensors that maintain accuracy in extreme temperatures (-40°C to 60°C),
+                            high humidity, dust, and electromagnetic interference.
+                        </p>
+                    </div>
+                </div>
+                <div class="challenge-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="challenge-number">2</div>
+                    <div class="challenge-content">
+                        <h3 class="challenge-title">Motion Artifact Reduction</h3>
+                        <p class="challenge-desc">
+                            Implementing advanced signal processing to extract clean physiological signals
+                            during high-intensity physical activities and combat situations.
+                        </p>
+                    </div>
+                </div>
+                <div class="challenge-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="challenge-number">3</div>
+                    <div class="challenge-content">
+                        <h3 class="challenge-title">Data Security</h3>
+                        <p class="challenge-desc">
+                            Ensuring military-grade encryption and secure data transmission while maintaining
+                            real-time performance and low power consumption.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section class="roadmap-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                <div class="section-icon">📅</div>
+                Development Roadmap
+            </h2>
+            <div class="roadmap-timeline">
+                <div class="roadmap-line"></div>
+
+                <div class="roadmap-item" data-aos="fade-right">
+                    <div class="roadmap-content">
+                        <div class="roadmap-date">Q1 2025 ✓</div>
+                        <h3 class="roadmap-title">Requirements Analysis</h3>
+                        <p class="roadmap-desc">
+                            Completed stakeholder interviews and operational requirements gathering
+                        </p>
+                    </div>
+                    <div class="roadmap-dot"></div>
+                    <div style="width: 45%;"></div>
+                </div>
+
+                <div class="roadmap-item" data-aos="fade-left">
+                    <div style="width: 45%;"></div>
+                    <div class="roadmap-dot"></div>
+                    <div class="roadmap-content">
+                        <div class="roadmap-date">Q2 2025 ✓</div>
+                        <h3 class="roadmap-title">Prototype Design</h3>
+                        <p class="roadmap-desc">
+                            Initial hardware design and sensor selection completed
+                        </p>
+                    </div>
+                </div>
+
+                <div class="roadmap-item" data-aos="fade-right">
+                    <div class="roadmap-content">
+                        <div class="roadmap-date">Q3 2025 (Current)</div>
+                        <h3 class="roadmap-title">System Integration</h3>
+                        <p class="roadmap-desc">
+                            Integrating sensors, communication modules, and power systems
+                        </p>
+                    </div>
+                    <div class="roadmap-dot" style="background: var(--accent-blue); width: 24px; height: 24px;"></div>
+                    <div style="width: 45%;"></div>
+                </div>
+
+                <div class="roadmap-item" data-aos="fade-left">
+                    <div style="width: 45%;"></div>
+                    <div class="roadmap-dot" style="background: var(--border-color);"></div>
+                    <div class="roadmap-content">
+                        <div class="roadmap-date">Q4 2025</div>
+                        <h3 class="roadmap-title">Field Testing</h3>
+                        <p class="roadmap-desc">
+                            Controlled environment testing with military personnel
+                        </p>
+                    </div>
+                </div>
+
+                <div class="roadmap-item" data-aos="fade-right">
+                    <div class="roadmap-content">
+                        <div class="roadmap-date">Q1 2026</div>
+                        <h3 class="roadmap-title">Deployment</h3>
+                        <p class="roadmap-desc">
+                            Final validation and operational deployment
+                        </p>
+                    </div>
+                    <div class="roadmap-dot" style="background: var(--border-color);"></div>
+                    <div style="width: 45%;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container" data-aos="fade-up">
+            <h2 class="contact-title">Interested in Collaboration?</h2>
+            <p class="contact-desc">
+                This project seeks partnerships with defense technology experts,
+                physiological monitoring specialists, and AI researchers.
+            </p>
+            <a href="mailto:jgl0304@kaist.ac.kr" class="contact-btn">
+                Get in Touch →
+            </a>
+        </div>
+    </section>
 
     <script>
-        // Smooth hover effect
-        const contentBox = document.querySelector('.content-box');
-        
-        contentBox.addEventListener('mouseenter', function() {
-            this.style.transform = 'scale(1.02)';
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
         });
-        
-        contentBox.addEventListener('mouseleave', function() {
-            this.style.transform = 'scale(1)';
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
         });
+
+        // Animated progress dots
+        const dots = document.querySelectorAll('.progress-dot');
+        let currentDot = 0;
+
+        setInterval(() => {
+            if (currentDot < 3) {
+                dots[currentDot].classList.add('active');
+                currentDot++;
+            }
+        }, 500);
     </script>
 </body>
 </html>
