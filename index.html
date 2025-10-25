@@ -3,99 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Gyurim Jang - PhD Candidate in Electrical Engineering at KAIST, specializing in Environmental Monitoring and Biomedical Systems">
-    <meta name="keywords" content="Gyurim Jang, KAIST, CO2 Monitoring, Wireless Sensing, Biomedical Systems, Healthcare Technology">
+    <meta name="description" content="Gyurim Jang - PhD Candidate at KAIST, specializing in Self-Powered IoT Solutions, Digital Healthcare, and Environmental Monitoring">
+    <meta name="keywords" content="Gyurim Jang, KAIST, PhD, IoT, Healthcare, BLE, FPCB, Deep Learning, Environmental Monitoring">
     <meta name="author" content="Gyurim Jang">
-    
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Gyurim Jang - IoT & Healthcare Research | KAIST PhD">
+    <meta property="og:description" content="PhD researcher specializing in self-powered IoT solutions, digital healthcare, and environmental monitoring at KAIST">
+    <meta property="og:url" content="https://jglJGL000304.github.io">
+    <meta property="og:type" content="website">
+
     <title>Gyurim Jang | PhD Candidate - KAIST EE</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Typed.js for typing effect -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
     <style>
-        /* Pastel Color Palette */
         :root {
-            --bg-white: #ffffff;
-            --bg-light: #fafbfc;
-            --text-primary: #2c3e50;
-            --text-secondary: #5a6c7d;
-            --text-light: #94a3b8;
-            
-            /* Pastel Project Colors */
-            --pastel-green: #a8e6cf;
-            --pastel-green-dark: #7fcdbb;
-            --pastel-pink: #ffd3d3;
-            --pastel-pink-dark: #ffb6b6;
-            --pastel-blue: #c7e9ff;
-            --pastel-blue-dark: #a6d8f4;
-            --pastel-purple: #e0c3fc;
-            --pastel-yellow: #fff3b8;
-            
-            --border-light: #e5e7eb;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-            --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
-            --shadow-lg: 0 10px 15px rgba(0,0,0,0.08);
-            
-            --transition: all 0.3s ease;
+            --primary-blue: #1e3a8a;
+            --accent-teal: #0891b2;
+            --success-green: #059669;
+            --warm-coral: #f97316;
+            --neutral-slate: #475569;
+            --light-gray: #f8fafc;
+            --dark-bg: #0f172a;
+            --dark-card: #1e293b;
+
+            --gradient-tech: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-research: linear-gradient(135deg, #0891b2 0%, #065f46 100%);
+            --gradient-hero: linear-gradient(135deg, #1e3a8a 0%, #0891b2 50%, #059669 100%);
+
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 40px rgba(0,0,0,0.15);
+
+            --font-heading: 'IBM Plex Sans', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
         }
-        
+
+        /* Dark Mode Variables */
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --border-color: #475569;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --border-color: #e2e8f0;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg-white);
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
             overflow-x: hidden;
         }
-        
-        /* Header */
-        header {
-            background-color: var(--bg-white);
-            padding: 1rem 0;
+
+        /* Progress Bar */
+        .progress-bar {
             position: fixed;
-            width: 100%;
             top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--gradient-research);
+            z-index: 10000;
+            transition: width 0.3s ease;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--bg-primary);
+            backdrop-filter: blur(10px);
             z-index: 1000;
-            box-shadow: var(--shadow-sm);
+            padding: 1rem 0;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
         }
-        
-        nav ul {
-            list-style: none;
+
+        nav.scrolled {
+            padding: 0.5rem 0;
+            background: rgba(var(--bg-primary), 0.95);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            gap: 2rem;
+            padding: 0 2rem;
         }
-        
-        nav a {
+
+        .nav-logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-tech);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
             color: var(--text-secondary);
             text-decoration: none;
             font-weight: 500;
-            transition: var(--transition);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--accent-teal);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-teal);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .theme-toggle {
+            background: transparent;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent-teal);
+            transform: rotate(180deg);
+        }
+
+        .lang-toggle {
+            background: transparent;
+            border: 2px solid var(--border-color);
             padding: 0.5rem 1rem;
             border-radius: 20px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
-        
-        nav a:hover {
-            background-color: var(--bg-light);
-            color: var(--text-primary);
+
+        .lang-toggle:hover {
+            border-color: var(--accent-teal);
+            color: var(--accent-teal);
         }
-        
+
         /* Hero Section */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, var(--pastel-blue) 0%, var(--pastel-green) 50%, var(--pastel-pink) 100%);
+            background: var(--gradient-hero);
             position: relative;
             padding-top: 80px;
+            overflow: hidden;
         }
-        
+
         .hero::before {
             content: '';
             position: absolute;
@@ -103,411 +227,1038 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.2) 0%, transparent 50%);
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(8, 145, 178, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(5, 150, 105, 0.1) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
         }
-        
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-20px) translateX(10px); }
+            50% { transform: translateY(10px) translateX(-10px); }
+            75% { transform: translateY(-10px) translateX(20px); }
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: particle-float 15s infinite linear;
+        }
+
+        @keyframes particle-float {
+            from {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
         .hero-content {
             text-align: center;
             z-index: 2;
+            max-width: 900px;
             padding: 2rem;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 30px;
-            box-shadow: var(--shadow-lg);
-            backdrop-filter: blur(10px);
-            max-width: 600px;
         }
-        
-        .hero h1 {
-            font-size: 3rem;
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: 4rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            color: var(--text-primary);
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: slideInUp 1s ease;
         }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: rgba(255,255,255,0.95);
             margin-bottom: 1rem;
+            animation: slideInUp 1s ease 0.2s both;
         }
-        
-        .keywords {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            justify-content: center;
-            margin: 1.5rem 0;
+
+        .typing-container {
+            height: 40px;
+            margin-bottom: 2rem;
         }
-        
-        .keyword {
-            background: var(--bg-white);
-            color: var(--text-secondary);
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            border: 1px solid var(--border-light);
-            transition: var(--transition);
+
+        .typed-text {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+            font-family: var(--font-mono);
         }
-        
-        .keyword:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .hero-links {
+
+        .hero-cta {
             display: flex;
             gap: 1rem;
             justify-content: center;
             margin-top: 2rem;
+            animation: slideInUp 1s ease 0.4s both;
         }
-        
+
         .btn {
             padding: 0.8rem 2rem;
-            border-radius: 25px;
-            font-weight: 600;
+            border-radius: 30px;
             text-decoration: none;
-            transition: var(--transition);
+            font-weight: 600;
+            transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            border: 2px solid transparent;
         }
-        
+
         .btn-primary {
-            background: var(--text-primary);
-            color: white;
+            background: white;
+            color: var(--primary-blue);
         }
-        
+
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
-        
+
         .btn-secondary {
-            background: var(--bg-white);
-            color: var(--text-primary);
-            border: 2px solid var(--border-light);
+            background: transparent;
+            color: white;
+            border-color: white;
         }
-        
+
         .btn-secondary:hover {
-            background: var(--bg-light);
+            background: white;
+            color: var(--primary-blue);
         }
-        
+
         /* Container */
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 2rem;
         }
-        
+
         /* Section Styles */
         section {
             padding: 5rem 0;
+            position: relative;
         }
-        
+
         .section-title {
-            font-size: 2.5rem;
+            font-family: var(--font-heading);
+            font-size: 3rem;
             text-align: center;
-            margin-bottom: 3rem;
-            color: var(--text-primary);
+            margin-bottom: 1rem;
+            background: var(--gradient-tech);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             font-weight: 700;
         }
-        
-        /* About Section */
-        .about {
-            background: var(--bg-light);
-        }
-        
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 3rem;
-            align-items: center;
-        }
-        
-        .profile-img {
-            width: 200px;
-            height: 200px;
-            background: linear-gradient(135deg, var(--pastel-purple), var(--pastel-pink));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: white;
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .about-text p {
+
+        .section-subtitle {
+            text-align: center;
             color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Research Metrics Dashboard */
+        .metrics-section {
+            background: var(--bg-secondary);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-research);
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .metric-icon {
+            font-size: 2.5rem;
             margin-bottom: 1rem;
         }
-        
-        .education-timeline {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: var(--bg-white);
-            border-radius: 15px;
-            box-shadow: var(--shadow-sm);
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-teal);
+            font-family: var(--font-mono);
         }
-        
+
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+        }
+
+        /* Chart Container */
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .chart-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .chart-title {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            position: relative;
+            padding: 5rem 0;
+        }
+
+        .timeline-container {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gradient-research);
+            transform: translateX(-50%);
+        }
+
         .timeline-item {
-            padding: 0.8rem 0;
-            border-left: 3px solid var(--pastel-blue);
-            padding-left: 1.5rem;
-            margin-left: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4rem;
+            position: relative;
         }
-        
-        /* Projects Section */
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background: var(--accent-teal);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 4px solid var(--bg-primary);
+            z-index: 2;
+        }
+
+        .timeline-date {
+            font-weight: 600;
+            color: var(--accent-teal);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .timeline-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .timeline-badge {
+            display: inline-block;
+            background: rgba(8, 145, 178, 0.1);
+            color: var(--accent-teal);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Project Showcase */
+        .projects-section {
+            background: var(--bg-secondary);
+        }
+
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
         }
-        
+
         .project-card {
-            background: var(--bg-white);
+            background: var(--bg-card);
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: var(--shadow-md);
-            transition: var(--transition);
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid var(--border-color);
             cursor: pointer;
         }
-        
+
         .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
         }
-        
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-tech);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
         .project-header {
             padding: 2rem;
-            color: var(--text-primary);
+            background: var(--gradient-research);
+            color: white;
             position: relative;
-            overflow: hidden;
         }
-        
-        .project-card.co2 .project-header {
-            background: linear-gradient(135deg, var(--pastel-green), var(--pastel-green-dark));
-        }
-        
-        .project-card.senior .project-header {
-            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-pink-dark));
-        }
-        
-        .project-card.military .project-header {
-            background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-blue-dark));
-        }
-        
+
         .project-icon {
             font-size: 3rem;
             margin-bottom: 1rem;
         }
-        
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .project-subtitle {
+            opacity: 0.95;
+            font-size: 0.95rem;
+        }
+
         .project-content {
             padding: 2rem;
         }
-        
-        .project-content h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-        
-        .project-content p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
             margin-bottom: 1rem;
         }
-        
-        .project-status {
-            display: inline-block;
-            padding: 0.3rem 1rem;
+
+        .tech-badge {
+            background: rgba(8, 145, 178, 0.1);
+            color: var(--accent-teal);
+            padding: 0.3rem 0.8rem;
             border-radius: 15px;
             font-size: 0.85rem;
+            font-family: var(--font-mono);
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-teal);
+            text-decoration: none;
+            font-weight: 600;
+            transition: gap 0.3s ease;
+        }
+
+        .project-link:hover {
+            gap: 1rem;
+        }
+
+        /* Publications Section */
+        .publications-section {
+            position: relative;
+        }
+
+        .publication-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+            border-left: 5px solid var(--success-green);
+            position: relative;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .publication-card:hover {
+            transform: translateX(10px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .publication-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .publication-title {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .impact-badge {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 1rem;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .publication-authors {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-style: italic;
+        }
+
+        .publication-journal {
+            color: var(--success-green);
             font-weight: 600;
             margin-bottom: 1rem;
         }
-        
-        .status-published {
-            background: rgba(168, 230, 207, 0.2);
-            color: #22a06b;
+
+        .publication-links {
+            display: flex;
+            gap: 1rem;
         }
-        
-        .status-completed {
-            background: rgba(255, 211, 211, 0.2);
-            color: #e74c3c;
-        }
-        
-        .status-ongoing {
-            background: rgba(199, 233, 255, 0.2);
-            color: #3498db;
-        }
-        
-        /* Publications */
-        .publications {
-            background: var(--bg-light);
-        }
-        
-        .publication-item {
-            background: var(--bg-white);
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: var(--shadow-sm);
-            margin-bottom: 1.5rem;
-            border-left: 4px solid var(--pastel-green);
-        }
-        
-        .publication-item h4 {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-        
-        .journal-info {
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-        }
-        
+
         .doi-link {
-            color: #22a06b;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--success-green);
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
             text-decoration: none;
             font-weight: 500;
+            transition: all 0.3s ease;
         }
-        
+
         .doi-link:hover {
-            text-decoration: underline;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(5, 150, 105, 0.3);
         }
-        
-        /* Contact */
-        .contact {
-            text-align: center;
-            padding: 4rem 0;
+
+        /* Skills Section */
+        .skills-section {
+            background: var(--bg-secondary);
         }
-        
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
         }
-        
-        .contact-link {
+
+        .skill-category {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .skill-category-title {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-teal);
+            font-weight: 600;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.8rem 1.5rem;
-            background: var(--bg-light);
-            border-radius: 25px;
-            text-decoration: none;
+        }
+
+        .skill-item {
+            margin-bottom: 1.2rem;
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
             color: var(--text-primary);
-            transition: var(--transition);
-            border: 1px solid var(--border-light);
+            font-weight: 500;
         }
-        
+
+        .skill-percentage {
+            color: var(--accent-teal);
+            font-weight: 600;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: var(--gradient-tech);
+            border-radius: 10px;
+            width: 0;
+            transition: width 2s ease;
+            position: relative;
+        }
+
+        .skill-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 20px;
+            background: rgba(255,255,255,0.3);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-20px); }
+            100% { transform: translateX(20px); }
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--gradient-hero);
+            color: white;
+            text-align: center;
+        }
+
+        .contact-section .section-title {
+            -webkit-text-fill-color: white;
+        }
+
+        .contact-section .section-subtitle {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .contact-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-5px);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .contact-info {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .contact-link {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
         .contact-link:hover {
-            background: var(--bg-white);
-            box-shadow: var(--shadow-md);
-            transform: translateY(-2px);
+            text-decoration: underline;
         }
-        
+
+        .cv-download {
+            margin-top: 2rem;
+        }
+
+        .cv-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            color: var(--primary-blue);
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .cv-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.3);
+        }
+
         /* Footer */
         footer {
-            background: var(--bg-light);
+            background: var(--bg-secondary);
             padding: 2rem 0;
             text-align: center;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
         }
-        
-        /* Responsive */
+
+        .footer-content {
+            color: var(--text-secondary);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--accent-teal);
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
+            .mobile-menu-toggle {
+                display: flex;
             }
-            
-            .about-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            
-            .profile-img {
-                margin: 0 auto;
-            }
-            
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .contact-links {
+
+            .nav-menu {
+                position: fixed;
+                top: 60px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 60px);
+                background: var(--bg-primary);
                 flex-direction: column;
-                align-items: center;
+                padding: 2rem;
+                transition: left 0.3s ease;
             }
-            
-            nav ul {
-                flex-wrap: wrap;
-                gap: 1rem;
+
+            .nav-menu.active {
+                left: 0;
             }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .timeline-line {
+                left: 20px;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                margin-left: 40px;
+            }
+
+            .timeline-item:nth-child(even) {
+                flex-direction: column;
+            }
+
+            .timeline-content {
+                width: 100%;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-circle {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--border-color);
+            border-top-color: var(--accent-teal);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
-<body>
+<body data-theme="light">
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="loader-circle"></div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
     <!-- Navigation -->
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#publications">Publications</a></li>
-                <li><a href="#contact">Contact</a></li>
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">GJ</div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#metrics" class="nav-link">Research</a></li>
+                <li><a href="#timeline" class="nav-link">Timeline</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#publications" class="nav-link">Publications</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
-        </nav>
-    </header>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle">🌙</button>
+                <button class="lang-toggle" id="langToggle">KO</button>
+                <button class="mobile-menu-toggle" id="mobileToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
+        <div class="particles" id="particles"></div>
         <div class="hero-content">
-            <h1>Gyurim Jang</h1>
-            <p class="subtitle">PhD Candidate · KAIST School of Electrical Engineering</p>
-            
-            <div class="keywords">
-                <span class="keyword">🌱 Environmental Monitoring</span>
-                <span class="keyword">❤️ Biomedical Systems</span>
-                <span class="keyword">📡 Wireless Sensing</span>
-                <span class="keyword">🔬 IoT Solutions</span>
+            <h1 class="hero-title">Gyurim Jang</h1>
+            <p class="hero-subtitle">PhD Candidate at KAIST EE</p>
+            <div class="typing-container">
+                <span class="typed-text" id="typed"></span>
             </div>
-            
-            <div class="hero-links">
-                <a href="#projects" class="btn btn-primary">
-                    <span>View Projects</span> →
-                </a>
-                <a href="#contact" class="btn btn-secondary">
-                    <span>Contact</span> ✉️
-                </a>
+            <div class="hero-cta">
+                <a href="#projects" class="btn btn-primary">View Research</a>
+                <a href="#contact" class="btn btn-secondary">Contact Me</a>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
+    <!-- Research Metrics Section -->
+    <section id="metrics" class="metrics-section">
         <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="profile-img">GJ</div>
-                <div class="about-text">
-                    <p>I am a PhD candidate at KAIST School of Electrical Engineering, specializing in environmental monitoring and biomedical systems. My research focuses on developing innovative wireless sensing solutions for real-world applications.</p>
-                    
-                    <div class="education-timeline">
-                        <h4 style="margin-bottom: 1rem;">Education</h4>
-                        <div class="timeline-item">
-                            <strong>PhD in Electrical Engineering</strong> - KAIST (Current)
-                        </div>
-                        <div class="timeline-item">
-                            <strong>MS in Electrical Engineering</strong> - KAIST (Spring 2025)
-                        </div>
-                        <div class="timeline-item">
-                            <strong>BS</strong> - DGIST (Graduated: Feb 16, 2023)
-                        </div>
+            <h2 class="section-title" data-aos="fade-up">Research Impact</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Quantifying research contributions and academic achievements
+            </p>
+
+            <div class="metrics-grid" data-aos="fade-up" data-aos-delay="200">
+                <div class="metric-card">
+                    <div class="metric-icon">📝</div>
+                    <div class="metric-value" data-count="2">0</div>
+                    <div class="metric-label">Publications</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">📊</div>
+                    <div class="metric-value" data-count="17.1">0</div>
+                    <div class="metric-label">Max Impact Factor</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">🔬</div>
+                    <div class="metric-value" data-count="3">0</div>
+                    <div class="metric-label">Active Projects</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">🏆</div>
+                    <div class="metric-value" data-count="1">0</div>
+                    <div class="metric-label">Awards</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">💰</div>
+                    <div class="metric-value">7M₩</div>
+                    <div class="metric-label">Research Grants</div>
+                </div>
+            </div>
+
+            <div class="charts-container" data-aos="fade-up" data-aos-delay="300">
+                <div class="chart-card">
+                    <h3 class="chart-title">Research Areas Distribution</h3>
+                    <canvas id="researchChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3 class="chart-title">Skills Proficiency</h3>
+                    <canvas id="skillsRadar"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section id="timeline" class="timeline-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Academic Journey</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Education, research, and professional milestones
+            </p>
+
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Sep 2025 - Present</div>
+                        <h3 class="timeline-title">PhD in Electrical Engineering</h3>
+                        <p class="timeline-description">
+                            KAIST - Advisor: Prof. Kyeongha Kwon<br>
+                            Thesis: End-to-End System Design for Self-Powered IoT Solutions
+                        </p>
+                        <span class="timeline-badge">Ongoing</span>
+                    </div>
+                    <div class="timeline-dot"></div>
+                    <div style="width: 45%;"></div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div style="width: 45%;"></div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">June 2025</div>
+                        <h3 class="timeline-title">Nano Energy Publication</h3>
+                        <p class="timeline-description">
+                            Co-first author publication on self-powered wireless CO₂ monitoring system<br>
+                            Impact Factor: 17.1
+                        </p>
+                        <span class="timeline-badge">Published</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2024</div>
+                        <h3 class="timeline-title">WISET Research Program</h3>
+                        <p class="timeline-description">
+                            Selected as Principal Investigator<br>
+                            Project: Real-time Multifunctional Healthcare Monitoring System<br>
+                            Grant: ₩7,000,000
+                        </p>
+                        <span class="timeline-badge">Completed</span>
+                    </div>
+                    <div class="timeline-dot"></div>
+                    <div style="width: 45%;"></div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div style="width: 45%;"></div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Sep 2023 - Sep 2025</div>
+                        <h3 class="timeline-title">MS in Electrical Engineering</h3>
+                        <p class="timeline-description">
+                            KAIST - Advisor: Prof. Kyeongha Kwon<br>
+                            Focus: IoT Healthcare and Environmental Monitoring
+                        </p>
+                        <span class="timeline-badge">Completed</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Feb 2019 - Feb 2023</div>
+                        <h3 class="timeline-title">BS Degree</h3>
+                        <p class="timeline-description">
+                            Daegu Gyeongbuk Institute of Science and Technology (DGIST)<br>
+                            Undergraduate Research: BIN1/PICALM Effects on Amyloid Beta Clearance
+                        </p>
+                        <span class="timeline-badge">Graduated</span>
+                    </div>
+                    <div class="timeline-dot"></div>
+                    <div style="width: 45%;"></div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div style="width: 45%;"></div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2021</div>
+                        <h3 class="timeline-title">Excellence Award</h3>
+                        <p class="timeline-description">
+                            Undergraduate Group Research Program (UGRP)<br>
+                            DGIST Recognition for Outstanding Research
+                        </p>
+                        <span class="timeline-badge">Award</span>
                     </div>
                 </div>
             </div>
@@ -515,43 +1266,85 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="projects">
+    <section id="projects" class="projects-section">
         <div class="container">
-            <h2 class="section-title">Research Projects</h2>
+            <h2 class="section-title" data-aos="fade-up">Research Projects</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Leading innovative solutions in IoT, healthcare, and environmental monitoring
+            </p>
+
             <div class="projects-grid">
-                <!-- CO2 Project -->
-                <div class="project-card co2" onclick="location.href='co2-project.html'">
+                <div class="project-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="project-header">
                         <div class="project-icon">🌍</div>
-                        <h3>Self-Powered Wireless CO₂ Monitoring</h3>
+                        <h3 class="project-title">Self-Powered CO₂ Monitoring</h3>
+                        <p class="project-subtitle">Environmental IoT System</p>
                     </div>
                     <div class="project-content">
-                        <span class="project-status status-published">Published</span>
-                        <p>Designed and implemented a BLE-based wireless CO₂ sensing system powered by vibration energy harvesting.</p>
+                        <div class="tech-stack">
+                            <span class="tech-badge">BLE 5.0</span>
+                            <span class="tech-badge">FPCB Design</span>
+                            <span class="tech-badge">Energy Harvesting</span>
+                            <span class="tech-badge">TENG</span>
+                            <span class="tech-badge">nRF52</span>
+                        </div>
+                        <p class="project-description">
+                            Designed and implemented a wireless CO₂ sensing system that operates without batteries
+                            by harvesting ambient vibration energy. Integrated BLE communication for real-time
+                            data transmission in industrial settings.
+                        </p>
+                        <a href="co2-project.html" class="project-link">
+                            View Details →
+                        </a>
                     </div>
                 </div>
 
-                <!-- Senior Care Project -->
-                <div class="project-card senior" onclick="location.href='senior-care.html'">
-                    <div class="project-header">
+                <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="project-header" style="background: linear-gradient(135deg, #f97316 0%, #dc2626 100%);">
                         <div class="project-icon">❤️</div>
-                        <h3>Healthcare Monitoring for Elderly</h3>
+                        <h3 class="project-title">Digital Healthcare System</h3>
+                        <p class="project-subtitle">Multi-modal Monitoring</p>
                     </div>
                     <div class="project-content">
-                        <span class="project-status status-completed">Completed</span>
-                        <p>Multi-modal physiological monitoring system with real-time SpO₂ and heart rate analysis.</p>
+                        <div class="tech-stack">
+                            <span class="tech-badge">PPG Sensor</span>
+                            <span class="tech-badge">Bio-Z</span>
+                            <span class="tech-badge">Android</span>
+                            <span class="tech-badge">Deep Learning</span>
+                            <span class="tech-badge">TensorFlow</span>
+                        </div>
+                        <p class="project-description">
+                            Architected a complete wireless PPG monitoring system with FPCB design,
+                            BLE data transmission to custom Android app, and on-device deep learning
+                            algorithms for real-time signal analysis.
+                        </p>
+                        <a href="healthcare-project.html" class="project-link">
+                            View Details →
+                        </a>
                     </div>
                 </div>
 
-                <!-- Military Project -->
-                <div class="project-card military" onclick="location.href='military-health.html'">
-                    <div class="project-header">
+                <div class="project-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="project-header" style="background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);">
                         <div class="project-icon">🛡️</div>
-                        <h3>Military Health Monitoring</h3>
+                        <h3 class="project-title">Military Health Monitoring</h3>
+                        <p class="project-subtitle">Robust Physiological Tracking</p>
                     </div>
                     <div class="project-content">
-                        <span class="project-status status-ongoing">In Progress</span>
-                        <p>— Coming Soon —</p>
+                        <div class="tech-stack">
+                            <span class="tech-badge">Wearable</span>
+                            <span class="tech-badge">Real-time</span>
+                            <span class="tech-badge">Edge AI</span>
+                            <span class="tech-badge">Low Power</span>
+                        </div>
+                        <p class="project-description">
+                            Developing a ruggedized health monitoring system for military personnel
+                            with real-time physiological tracking and predictive analytics
+                            for extreme environments.
+                        </p>
+                        <a href="military-project.html" class="project-link">
+                            Coming Soon →
+                        </a>
                     </div>
                 </div>
             </div>
@@ -559,36 +1352,223 @@
     </section>
 
     <!-- Publications Section -->
-    <section id="publications" class="publications">
+    <section id="publications" class="publications-section">
         <div class="container">
-            <h2 class="section-title">Publications</h2>
-            <div class="publication-item">
-                <h4>Highly compact inertia-driven triboelectric nanogenerator for self-powered wireless CO₂ monitoring via fine-vibration harvesting</h4>
-                <p class="journal-info">
-                    <strong>Nano Energy</strong> (IF: 16.8) | June 2025<br>
-                    <em>G. Jang*, D.M. Tiruneh*, et al. (*Co-first) | Corresponding: K.-H. Kwon</em>
-                </p>
-                <a href="https://doi.org/10.1016/j.nanoen.2025.110872" class="doi-link" target="_blank">
-                    DOI: 10.1016/j.nanoen.2025.110872
-                </a>
+            <h2 class="section-title" data-aos="fade-up">Publications</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Peer-reviewed research contributions
+            </p>
+
+            <div class="publication-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="publication-header">
+                    <div>
+                        <h3 class="publication-title">
+                            Highly compact inertia-driven triboelectric nanogenerator for self-powered
+                            wireless CO₂ monitoring via fine-vibration harvesting
+                        </h3>
+                        <p class="publication-authors">
+                            D.M. Tiruneh*, <strong>G. Jang*</strong>, K. Kwon, H. Ryu
+                            (*Co-first authorship)
+                        </p>
+                        <p class="publication-journal">
+                            Nano Energy, Volume 138, June 2025
+                        </p>
+                    </div>
+                    <div class="impact-badge">IF: 17.1</div>
+                </div>
+                <div class="publication-links">
+                    <a href="https://doi.org/10.1016/j.nanoen.2025.110872" target="_blank" class="doi-link">
+                        View Paper →
+                    </a>
+                </div>
+            </div>
+
+            <div class="publication-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="publication-header">
+                    <div>
+                        <h3 class="publication-title">
+                            Recent Advances in Bioresorbable Biomedical Applications: From Materials to Devices
+                        </h3>
+                        <p class="publication-authors">
+                            D.Y. Park, H.-M. Lee, S.-H. Kim, Y. Sim, Y. Kang, <strong>G. Jang</strong>,
+                            S. Kim, K. Kwon, H. Ryu
+                        </p>
+                        <p class="publication-journal">
+                            Advanced Electronic Materials, Volume 11, Issue 10, 2025
+                        </p>
+                    </div>
+                </div>
+                <div class="publication-links">
+                    <a href="#" target="_blank" class="doi-link">
+                        View Paper →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Technical Expertise</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Comprehensive skill set in hardware, software, and AI
+            </p>
+
+            <div class="skills-container">
+                <div class="skill-category" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="skill-category-title">
+                        🔧 Hardware & Circuit Design
+                    </h3>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>FPCB Design</span>
+                            <span class="skill-percentage">90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="90"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Commercial IC Integration</span>
+                            <span class="skill-percentage">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Sensor Systems</span>
+                            <span class="skill-percentage">88%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="88"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="skill-category-title">
+                        📡 Wireless Communication
+                    </h3>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Bluetooth Low Energy (BLE)</span>
+                            <span class="skill-percentage">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>nRF Series SoCs</span>
+                            <span class="skill-percentage">80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="80"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>IoT Protocols</span>
+                            <span class="skill-percentage">75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="75"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category" data-aos="fade-up" data-aos-delay="400">
+                    <h3 class="skill-category-title">
+                        💻 Software & AI
+                    </h3>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Python</span>
+                            <span class="skill-percentage">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Android Development</span>
+                            <span class="skill-percentage">75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="75"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Deep Learning (TensorFlow/PyTorch)</span>
+                            <span class="skill-percentage">70%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="70"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact">
+    <section id="contact" class="contact-section">
         <div class="container">
-            <h2 class="section-title">Contact</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 2rem;">Feel free to reach out for collaborations or inquiries</p>
-            <div class="contact-links">
-                <a href="mailto:gyurim@kaist.ac.kr" class="contact-link">
-                    <span>📧</span> Email
-                </a>
-                <a href="https://github.com/jglJGL000304" class="contact-link" target="_blank">
-                    <span>💻</span> GitHub
-                </a>
-                <a href="#" class="contact-link">
-                    <span>🔗</span> LinkedIn
+            <h2 class="section-title" data-aos="fade-up">Get In Touch</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Let's collaborate on innovative research projects
+            </p>
+
+            <div class="contact-grid" data-aos="fade-up" data-aos-delay="200">
+                <div class="contact-card">
+                    <div class="contact-icon">📧</div>
+                    <h3 class="contact-title">Email</h3>
+                    <p class="contact-info">
+                        <a href="mailto:jgl0304@kaist.ac.kr" class="contact-link">
+                            jgl0304@kaist.ac.kr
+                        </a>
+                    </p>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">📍</div>
+                    <h3 class="contact-title">Location</h3>
+                    <p class="contact-info">
+                        KAIST E19 Room 204<br>
+                        Daejeon, South Korea
+                    </p>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">🔬</div>
+                    <h3 class="contact-title">Research Group</h3>
+                    <p class="contact-info">
+                        Kwon Research Group<br>
+                        KAIST EE
+                    </p>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">💼</div>
+                    <h3 class="contact-title">GitHub</h3>
+                    <p class="contact-info">
+                        <a href="https://github.com/jglJGL000304" target="_blank" class="contact-link">
+                            @jglJGL000304
+                        </a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="cv-download" data-aos="fade-up" data-aos-delay="300">
+                <a href="CV_GyurimJang.pdf" download class="cv-btn">
+                    📄 Download CV
                 </a>
             </div>
         </div>
@@ -596,38 +1576,255 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Gyurim Jang · KAIST School of Electrical Engineering</p>
+        <div class="container">
+            <div class="footer-content">
+                <p>© 2025 Gyurim Jang. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="https://kaist.ac.kr" target="_blank" class="footer-link">KAIST</a>
+                    <a href="https://ee.kaist.ac.kr" target="_blank" class="footer-link">EE Department</a>
+                    <a href="#" class="footer-link">Privacy</a>
+                </div>
+            </div>
+        </div>
     </footer>
 
     <script>
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 500);
+        });
+
+        // Typing Effect
+        const typed = new Typed('#typed', {
+            strings: [
+                'Self-Powered IoT Solutions',
+                'Digital Healthcare Systems',
+                'Environmental Monitoring',
+                'FPCB & Circuit Design',
+                'Wireless BLE Communication',
+                'On-Device AI & Deep Learning'
+            ],
+            typeSpeed: 50,
+            backSpeed: 30,
+            backDelay: 2000,
+            loop: true
+        });
+
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Active Navigation Link
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
                 }
             });
         });
 
-        // Add floating animation to keywords
-        document.querySelectorAll('.keyword').forEach((keyword, index) => {
-            keyword.style.animation = `float ${3 + index * 0.5}s ease-in-out infinite`;
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        // Check for saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
         });
 
-        // Add float animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes float {
-                0%, 100% { transform: translateY(0px); }
-                50% { transform: translateY(-10px); }
+        // Language Toggle (placeholder)
+        const langToggle = document.getElementById('langToggle');
+        langToggle.addEventListener('click', () => {
+            const currentLang = langToggle.textContent;
+            langToggle.textContent = currentLang === 'KO' ? 'EN' : 'KO';
+            // Add language switching logic here
+        });
+
+        // Animated Counter
+        const counters = document.querySelectorAll('[data-count]');
+        const speed = 200;
+
+        const animateCounter = (counter) => {
+            const target = parseFloat(counter.getAttribute('data-count'));
+            const count = parseFloat(counter.innerText);
+            const increment = target / speed;
+
+            if (count < target) {
+                counter.innerText = (count + increment).toFixed(1);
+                setTimeout(() => animateCounter(counter), 10);
+            } else {
+                counter.innerText = target % 1 === 0 ? target : target.toFixed(1);
             }
-        `;
-        document.head.appendChild(style);
+        };
+
+        // Intersection Observer for counters
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        counters.forEach(counter => {
+            counterObserver.observe(counter);
+        });
+
+        // Skill Progress Bars Animation
+        const skillBars = document.querySelectorAll('.skill-progress');
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const width = entry.target.getAttribute('data-width');
+                    entry.target.style.width = width + '%';
+                    skillObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        skillBars.forEach(bar => {
+            skillObserver.observe(bar);
+        });
+
+        // Particles Animation
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.width = Math.random() * 3 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Research Areas Chart
+        const researchCtx = document.getElementById('researchChart').getContext('2d');
+        const researchChart = new Chart(researchCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['IoT Systems', 'Healthcare', 'Environmental', 'AI/ML'],
+                datasets: [{
+                    data: [35, 30, 25, 10],
+                    backgroundColor: [
+                        'rgba(30, 58, 138, 0.8)',
+                        'rgba(8, 145, 178, 0.8)',
+                        'rgba(5, 150, 105, 0.8)',
+                        'rgba(249, 115, 22, 0.8)'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: getComputedStyle(document.documentElement).getPropertyValue('--text-primary')
+                        }
+                    }
+                }
+            }
+        });
+
+        // Skills Radar Chart
+        const skillsCtx = document.getElementById('skillsRadar').getContext('2d');
+        const skillsRadarChart = new Chart(skillsCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Hardware', 'Software', 'BLE', 'AI/ML', 'Research', 'Leadership'],
+                datasets: [{
+                    label: 'Skills',
+                    data: [90, 75, 85, 70, 85, 80],
+                    backgroundColor: 'rgba(8, 145, 178, 0.2)',
+                    borderColor: 'rgba(8, 145, 178, 1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgba(8, 145, 178, 1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            stepSize: 20
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // Update charts on theme change
+        themeToggle.addEventListener('click', () => {
+            setTimeout(() => {
+                const textColor = getComputedStyle(document.documentElement).getPropertyValue('--text-primary');
+                researchChart.options.plugins.legend.labels.color = textColor;
+                researchChart.update();
+            }, 100);
+        });
     </script>
 </body>
 </html>
