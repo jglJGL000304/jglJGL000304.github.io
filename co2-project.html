@@ -3,66 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Self-Powered Wireless CO₂ Monitoring System - BLE Sensing System Design by Gyurim Jang">
-    <title>CO₂ Monitoring System - Gyurim Jang</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <meta name="description" content="Self-Powered Wireless CO₂ Monitoring System - Research by Gyurim Jang at KAIST">
+    <title>CO₂ Monitoring System | Gyurim Jang - KAIST Research</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
     <style>
         :root {
-            --bg-white: #ffffff;
-            --bg-light: #fafbfc;
-            --text-primary: #2c3e50;
-            --text-secondary: #5a6c7d;
-            
-            /* Pastel Green Theme */
-            --pastel-green: #a8e6cf;
-            --pastel-green-light: #c8f7dc;
-            --pastel-green-dark: #7fcdbb;
-            --accent-green: #22a06b;
-            
-            --border-light: #e5e7eb;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-            --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
-            --shadow-lg: 0 10px 15px rgba(0,0,0,0.08);
-            
-            --transition: all 0.3s ease;
+            --primary-green: #059669;
+            --accent-teal: #0891b2;
+            --dark-green: #064e3b;
+            --light-green: #d1fae5;
+            --neutral-slate: #475569;
+            --light-gray: #f8fafc;
+
+            --gradient-green: linear-gradient(135deg, #059669 0%, #0891b2 100%);
+            --gradient-tech: linear-gradient(135deg, #0891b2 0%, #065f46 100%);
+
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 40px rgba(0,0,0,0.15);
+
+            --font-heading: 'IBM Plex Sans', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
         }
-        
+
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --border-color: #475569;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --border-color: #e2e8f0;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg-white);
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
-        
+
         /* Navigation */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--bg-primary);
             backdrop-filter: blur(10px);
             z-index: 1000;
             padding: 1rem 0;
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow-md);
         }
-        
+
         .nav-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0 2rem;
         }
-        
+
         .back-btn {
             display: flex;
             align-items: center;
@@ -70,401 +98,1029 @@
             color: var(--text-secondary);
             text-decoration: none;
             font-weight: 500;
-            transition: var(--transition);
+            transition: all 0.3s ease;
             padding: 0.5rem 1rem;
             border-radius: 20px;
+            border: 2px solid var(--border-color);
         }
-        
+
         .back-btn:hover {
-            background: var(--bg-light);
-            color: var(--accent-green);
+            color: var(--primary-green);
+            border-color: var(--primary-green);
+            transform: translateX(-5px);
         }
-        
-        /* Hero Section */
-        .project-hero {
-            min-height: 50vh;
+
+        .theme-toggle {
+            background: transparent;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, var(--pastel-green-light) 0%, var(--pastel-green) 100%);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary-green);
+            transform: rotate(180deg);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-green);
+            position: relative;
             margin-top: 60px;
-            padding: 3rem 2rem;
+            overflow: hidden;
         }
-        
-        .project-hero-content {
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+        }
+
+        .hero-content {
             text-align: center;
-            max-width: 800px;
-            background: rgba(255, 255, 255, 0.9);
+            z-index: 2;
+            max-width: 1000px;
             padding: 3rem;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
             border-radius: 30px;
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-xl);
         }
-        
-        .project-hero h1 {
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark-green);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--neutral-slate);
+            margin-bottom: 2rem;
+        }
+
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .badge-published {
+            background: var(--light-green);
+            color: var(--dark-green);
+            border: 2px solid var(--primary-green);
+        }
+
+        .badge-impact {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: white;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
             font-size: 2.5rem;
             margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-        
-        .project-subtitle {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-        }
-        
-        .status-badge {
-            display: inline-block;
-            background: rgba(34, 160, 107, 0.1);
-            color: var(--accent-green);
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
-            font-weight: 600;
-            border: 2px solid var(--accent-green);
-        }
-        
-        /* Content Sections */
-        .content-section {
-            padding: 4rem 0;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding-left: 2rem;
-            padding-right: 2rem;
-        }
-        
-        .section-header {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
             color: var(--text-primary);
             display: flex;
             align-items: center;
             gap: 1rem;
         }
-        
+
         .section-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--pastel-green);
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-green);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Project Overview */
+        .overview-section {
+            background: var(--bg-secondary);
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .overview-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .overview-text strong {
+            color: var(--primary-green);
+        }
+
+        .key-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            border-color: var(--primary-green);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            font-family: var(--font-mono);
+        }
+
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* System Architecture */
+        .architecture-section {
+            position: relative;
+        }
+
+        .architecture-container {
+            background: var(--bg-card);
+            padding: 3rem;
+            border-radius: 30px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .system-diagram {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .system-component {
+            text-align: center;
+            position: relative;
+        }
+
+        .component-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1rem;
+            background: var(--gradient-tech);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
+
+        .system-component:hover .component-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .component-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .component-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .flow-arrow {
+            position: absolute;
+            top: 50px;
+            right: -30px;
+            font-size: 2rem;
+            color: var(--primary-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: translateX(0); }
+            50% { opacity: 1; transform: translateX(10px); }
+        }
+
+        /* Technical Specifications */
+        .specs-section {
+            background: var(--bg-secondary);
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .spec-category {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .spec-category-title {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-green);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .spec-list {
+            list-style: none;
+        }
+
+        .spec-item {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .spec-item:last-child {
+            border-bottom: none;
+        }
+
+        .spec-name {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .spec-value {
+            color: var(--primary-green);
+            font-family: var(--font-mono);
+            font-weight: 600;
+        }
+
+        /* Results Section */
+        .results-section {
+            position: relative;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .chart-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .chart-title {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Publication Section */
+        .publication-section {
+            background: var(--bg-secondary);
+        }
+
+        .publication-card {
+            background: var(--bg-card);
+            padding: 3rem;
+            border-radius: 30px;
+            box-shadow: var(--shadow-lg);
+            border-left: 5px solid var(--primary-green);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .publication-card::before {
+            content: '📚';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 100px;
+            opacity: 0.05;
+        }
+
+        .publication-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .publication-authors {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .publication-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .detail-value {
+            color: var(--primary-green);
+        }
+
+        .doi-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--gradient-green);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+        }
+
+        .doi-button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Key Contributions */
+        .contributions-section {
+            position: relative;
+        }
+
+        .contributions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .contribution-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            border: 2px solid transparent;
+            border-image: var(--gradient-green);
+            border-image-slice: 1;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .contribution-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .contribution-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: var(--gradient-green);
+            color: white;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-weight: 700;
+        }
+
+        .contribution-title {
             font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-top: 1rem;
         }
-        
-        /* Overview Box */
-        .overview-box {
-            background: var(--bg-light);
-            padding: 2rem;
-            border-radius: 20px;
-            margin-bottom: 3rem;
-        }
-        
-        .overview-box p {
+
+        .contribution-desc {
             color: var(--text-secondary);
-            font-size: 1.05rem;
+            line-height: 1.6;
         }
-        
-        /* Key Points */
-        .key-points {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
+
+        /* Future Work */
+        .future-section {
+            background: var(--bg-secondary);
         }
-        
-        .point-card {
-            background: var(--bg-white);
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border-light);
-            transition: var(--transition);
+
+        .future-timeline {
+            position: relative;
+            padding: 2rem 0;
         }
-        
-        .point-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-            border-color: var(--pastel-green);
-        }
-        
-        .point-card h3 {
-            color: var(--accent-green);
-            margin-bottom: 0.8rem;
-            font-size: 1.1rem;
-        }
-        
-        .point-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-        
-        /* System Architecture */
-        .architecture-section {
-            background: var(--bg-light);
-            padding: 3rem;
-            border-radius: 20px;
-            margin: 2rem 0;
-        }
-        
-        .system-flow {
+
+        .future-item {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
             gap: 2rem;
-            margin-top: 2rem;
+            margin-bottom: 2rem;
+            align-items: center;
         }
-        
-        .flow-item {
-            flex: 1;
-            text-align: center;
-            padding: 1.5rem;
-            background: var(--bg-white);
-            border-radius: 15px;
-            box-shadow: var(--shadow-sm);
-        }
-        
-        .flow-icon {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .flow-arrow {
-            color: var(--pastel-green-dark);
-            font-size: 1.5rem;
-        }
-        
-        /* Publication Box */
-        .publication-highlight {
-            background: linear-gradient(135deg, rgba(168, 230, 207, 0.1), rgba(168, 230, 207, 0.05));
-            padding: 2.5rem;
-            border-radius: 20px;
-            border: 2px solid var(--pastel-green);
-            margin: 3rem 0;
-        }
-        
-        .publication-highlight h3 {
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-        
-        .pub-details {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            line-height: 1.8;
-        }
-        
-        .doi-button {
-            display: inline-block;
-            background: var(--accent-green);
-            color: white;
-            padding: 0.6rem 1.5rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-        
-        .doi-button:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-        
-        /* Technical Specs */
-        .specs-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        
-        .spec-item {
+
+        .future-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-tech);
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 0.8rem;
-            padding: 0.8rem;
-            background: var(--bg-light);
-            border-radius: 10px;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-md);
         }
-        
-        .spec-label {
-            font-weight: 600;
+
+        .future-content {
+            flex: 1;
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .future-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
             color: var(--text-primary);
+            font-weight: 600;
         }
-        
-        .spec-value {
+
+        .future-desc {
             color: var(--text-secondary);
         }
-        
+
         /* Responsive */
         @media (max-width: 768px) {
-            .project-hero h1 {
+            .hero-title {
                 font-size: 2rem;
             }
-            
-            .system-flow {
-                flex-direction: column;
-            }
-            
-            .flow-arrow {
-                transform: rotate(90deg);
-            }
-            
-            .specs-grid {
+
+            .overview-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .key-points {
+
+            .system-diagram {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-arrow {
+                display: none;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contributions-grid {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
-<body>
+<body data-theme="light">
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
             <a href="index.html" class="back-btn">
-                <span>←</span> Back to Portfolio
+                ← Back to Portfolio
             </a>
-            <div style="color: var(--accent-green); font-weight: 600;">
-                CO₂ Monitoring System
-            </div>
+            <button class="theme-toggle" id="themeToggle">🌙</button>
         </div>
     </nav>
 
-    <!-- Project Hero -->
-    <section class="project-hero">
-        <div class="project-hero-content">
-            <h1>Self-Powered Wireless CO₂ Monitoring</h1>
-            <p class="project-subtitle">
-                BLE-based sensing system design powered by vibration energy harvesting
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content" data-aos="fade-up">
+            <h1 class="hero-title">Self-Powered Wireless CO₂ Monitoring</h1>
+            <p class="hero-subtitle">
+                Revolutionary battery-free environmental sensing through vibration energy harvesting
             </p>
-            <span class="status-badge">Published in Nano Energy</span>
+            <div class="hero-badges">
+                <span class="badge badge-published">Published in Nano Energy</span>
+                <span class="badge badge-impact">Impact Factor: 17.1</span>
+            </div>
         </div>
     </section>
 
-    <!-- Overview Section -->
-    <section class="content-section">
-        <h2 class="section-header">
-            <div class="section-icon">🎯</div>
-            Project Overview
-        </h2>
-        <div class="overview-box">
-            <p>
-                I designed and implemented a wireless CO₂ sensing system that operates without batteries by harvesting ambient vibration energy. 
-                The system integrates BLE communication for real-time data transmission, enabling sustainable environmental monitoring in industrial settings.
-            </p>
-        </div>
-    </section>
-
-    <!-- Key Contributions -->
-    <section class="content-section">
-        <h2 class="section-header">
-            <div class="section-icon">💡</div>
-            My Contributions
-        </h2>
-        <div class="key-points">
-            <div class="point-card">
-                <h3>System Architecture</h3>
-                <p>Designed the complete wireless sensing system integrating CO₂ sensor, BLE module, and power management circuit</p>
-            </div>
-            <div class="point-card">
-                <h3>BLE Implementation</h3>
-                <p>Developed low-power Bluetooth communication protocol for periodic CO₂ data transmission</p>
-            </div>
-            <div class="point-card">
-                <h3>Power Optimization</h3>
-                <p>Achieved self-powered operation through efficient energy harvesting and power management design</p>
+    <!-- Project Overview -->
+    <section class="overview-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                <div class="section-icon">🎯</div>
+                Project Overview
+            </h2>
+            <div class="overview-grid" data-aos="fade-up" data-aos-delay="100">
+                <div class="overview-text">
+                    <p>
+                        I designed and implemented a <strong>wireless CO₂ sensing system</strong> that operates
+                        completely without batteries by harvesting ambient vibration energy through a triboelectric
+                        nanogenerator (TENG). This groundbreaking system integrates <strong>BLE 5.0 communication</strong>
+                        for real-time data transmission, enabling sustainable environmental monitoring in industrial settings.
+                    </p>
+                    <p style="margin-top: 1rem;">
+                        As the <strong>co-first author</strong>, I led the system architecture design, implemented the
+                        wireless communication protocol, and optimized the power management circuit to achieve
+                        self-sustained operation with minimal vibration input (as low as 0.3 g acceleration).
+                    </p>
+                </div>
+                <div class="key-metrics">
+                    <div class="metric-card">
+                        <div class="metric-value">0 mW</div>
+                        <div class="metric-label">External Power</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">5 min</div>
+                        <div class="metric-label">Update Interval</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">0-5000</div>
+                        <div class="metric-label">ppm Range</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">BLE 5.0</div>
+                        <div class="metric-label">Wireless Protocol</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- System Architecture -->
-    <section class="content-section">
-        <div class="architecture-section">
-            <h2 class="section-header">
+    <section class="architecture-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
                 <div class="section-icon">⚙️</div>
-                System Design
+                System Architecture
             </h2>
-            <div class="system-flow">
-                <div class="flow-item">
-                    <div class="flow-icon">🔋</div>
-                    <h4>Energy Harvesting</h4>
-                    <p style="font-size: 0.9rem; color: var(--text-secondary);">TENG device</p>
+            <div class="architecture-container" data-aos="fade-up" data-aos-delay="100">
+                <div class="system-diagram">
+                    <div class="system-component">
+                        <div class="component-icon">🔄</div>
+                        <h3 class="component-title">Vibration Source</h3>
+                        <p class="component-desc">Ambient mechanical vibration (0.3-2g)</p>
+                        <span class="flow-arrow">→</span>
+                    </div>
+                    <div class="system-component">
+                        <div class="component-icon">⚡</div>
+                        <h3 class="component-title">TENG Harvester</h3>
+                        <p class="component-desc">Triboelectric energy conversion</p>
+                        <span class="flow-arrow">→</span>
+                    </div>
+                    <div class="system-component">
+                        <div class="component-icon">🌍</div>
+                        <h3 class="component-title">CO₂ Sensor</h3>
+                        <p class="component-desc">NDIR sensing module</p>
+                        <span class="flow-arrow">→</span>
+                    </div>
+                    <div class="system-component">
+                        <div class="component-icon">📡</div>
+                        <h3 class="component-title">BLE Transmitter</h3>
+                        <p class="component-desc">nRF52832 SoC</p>
+                    </div>
                 </div>
-                <span class="flow-arrow">→</span>
-                <div class="flow-item">
-                    <div class="flow-icon">🌍</div>
-                    <h4>CO₂ Sensing</h4>
-                    <p style="font-size: 0.9rem; color: var(--text-secondary);">NDIR sensor</p>
-                </div>
-                <span class="flow-arrow">→</span>
-                <div class="flow-item">
-                    <div class="flow-icon">📡</div>
-                    <h4>BLE Transmission</h4>
-                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Wireless data</p>
+
+                <div style="margin-top: 3rem; padding: 2rem; background: var(--light-green); border-radius: 15px;">
+                    <h4 style="color: var(--dark-green); margin-bottom: 1rem;">💡 Key Innovation</h4>
+                    <p style="color: var(--dark-green);">
+                        The system achieves complete energy autonomy by utilizing a highly efficient inertia-driven
+                        TENG that can harvest energy from vibrations as small as 0.3 g, making it suitable for
+                        deployment in various industrial environments without any external power source.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Technical Details -->
-    <section class="content-section">
-        <h2 class="section-header">
-            <div class="section-icon">📊</div>
-            Technical Specifications
-        </h2>
-        <div class="specs-grid">
-            <div class="spec-item">
-                <span class="spec-label">Communication:</span>
-                <span class="spec-value">BLE 5.0 Low Energy</span>
+    <!-- Technical Specifications -->
+    <section class="specs-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                <div class="section-icon">📊</div>
+                Technical Specifications
+            </h2>
+            <div class="specs-grid">
+                <div class="spec-category" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="spec-category-title">
+                        ⚡ Energy Harvesting
+                    </h3>
+                    <ul class="spec-list">
+                        <li class="spec-item">
+                            <span class="spec-name">Harvester Type</span>
+                            <span class="spec-value">TENG</span>
+                        </li>
+                        <li class="spec-item">
+                            <span class="spec-name">Min. Acceleration</span>
+                            <span class="spec-value">0.3 g</span>
+                        </li>
+                        <li class="spec-item">
+                            <span class="spec-name">Power Output</span>
+                            <span class="spec-value">~250 µW</span>
+                        </li>
+                        <li class="spec-item">
+                            <span class="spec-name">Storage Capacitor</span>
+                            <span class="spec-value">1000 µF</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="spec-category" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="spec-category-title">
+                        🌍 CO₂ Sensing
+                    </h3>
+                    <ul class="spec-list">
+                        <li class="spec-item">
+                            <span class="spec-name">Sensor Type</span>
+                            <span class="spec-value">NDIR</span>
+                        </li>
+                        <li class="spec-item">
+                            <span class="spec-name">Range</span>
+                            <span class="spec-value">0-5000 ppm</span>
+                        </li>
+                        <li class="spec-item">
+                            <span class="spec-name">Accuracy</span>
+                            <span class="spec-value">±50 ppm</span>
+                        </li>
+                        <li class="spec-item">
+                            <span class="spec-name">Response Time</span>
+                            <span class="spec-value"><30 sec</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="spec-category" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="spec-category-title">
+                        📡 Wireless Communication
+                    </h3>
+                    <ul class="spec-list">
+                        <li class="spec-item">
+                            <span class="spec-name">Protocol</span>
+                            <span class="spec-value">BLE 5.0</span>
+                        </li>
+                        <li class="spec-item">
+                            <span class="spec-name">MCU/Radio</span>
+                            <span class="spec-value">nRF52832</span>
+                        </li>
+                        <li class="spec-item">
+                            <span class="spec-name">TX Power</span>
+                            <span class="spec-value">0 dBm</span>
+                        </li>
+                        <li class="spec-item">
+                            <span class="spec-name">Range</span>
+                            <span class="spec-value">~50 m</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="spec-item">
-                <span class="spec-label">Power Source:</span>
-                <span class="spec-value">Vibration Energy (TENG)</span>
+        </div>
+    </section>
+
+    <!-- Results -->
+    <section class="results-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                <div class="section-icon">📈</div>
+                Experimental Results
+            </h2>
+            <div class="results-grid">
+                <div class="chart-card" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="chart-title">Power Generation vs Vibration Frequency</h3>
+                    <canvas id="powerChart"></canvas>
+                </div>
+                <div class="chart-card" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="chart-title">CO₂ Measurement Accuracy</h3>
+                    <canvas id="accuracyChart"></canvas>
+                </div>
             </div>
-            <div class="spec-item">
-                <span class="spec-label">Measurement Range:</span>
-                <span class="spec-value">0-5000 ppm CO₂</span>
-            </div>
-            <div class="spec-item">
-                <span class="spec-label">Update Interval:</span>
-                <span class="spec-value">5 minutes</span>
+        </div>
+    </section>
+
+    <!-- Key Contributions -->
+    <section class="contributions-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                <div class="section-icon">💡</div>
+                My Key Contributions
+            </h2>
+            <div class="contributions-grid">
+                <div class="contribution-card" data-aos="fade-up" data-aos-delay="100">
+                    <span class="contribution-number">1</span>
+                    <h3 class="contribution-title">System Architecture Design</h3>
+                    <p class="contribution-desc">
+                        Designed the complete wireless sensing system integrating CO₂ sensor, BLE module,
+                        and power management circuit with optimal component selection for low-power operation.
+                    </p>
+                </div>
+                <div class="contribution-card" data-aos="fade-up" data-aos-delay="200">
+                    <span class="contribution-number">2</span>
+                    <h3 class="contribution-title">BLE Protocol Implementation</h3>
+                    <p class="contribution-desc">
+                        Developed custom BLE communication protocol with adaptive transmission intervals
+                        based on available harvested energy, ensuring reliable data delivery.
+                    </p>
+                </div>
+                <div class="contribution-card" data-aos="fade-up" data-aos-delay="300">
+                    <span class="contribution-number">3</span>
+                    <h3 class="contribution-title">Power Optimization</h3>
+                    <p class="contribution-desc">
+                        Achieved self-powered operation through efficient energy management, including
+                        sleep mode optimization and intelligent power gating techniques.
+                    </p>
+                </div>
+                <div class="contribution-card" data-aos="fade-up" data-aos-delay="400">
+                    <span class="contribution-number">4</span>
+                    <h3 class="contribution-title">FPCB Design & Integration</h3>
+                    <p class="contribution-desc">
+                        Created compact flexible PCB layout integrating all components in a 40mm × 30mm
+                        form factor, suitable for industrial deployment.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Publication -->
-    <section class="content-section">
-        <div class="publication-highlight">
-            <h3>📚 Publication Details</h3>
-            <div class="pub-details">
-                <strong>Title:</strong> Highly compact inertia-driven triboelectric nanogenerator for self-powered wireless CO₂ monitoring via fine-vibration harvesting<br>
-                <strong>Journal:</strong> Nano Energy (Impact Factor: 16.8)<br>
-                <strong>Authors:</strong> Gyurim Jang*, Daniel Manaye Tiruneh*, et al.<br>
-                <strong>Corresponding Author:</strong> Prof. Kyoung-Ha Kwon<br>
-                <strong>Published:</strong> June 2025
+    <section class="publication-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                <div class="section-icon">📚</div>
+                Publication Details
+            </h2>
+            <div class="publication-card" data-aos="fade-up" data-aos-delay="100">
+                <h3 class="publication-title">
+                    Highly compact inertia-driven triboelectric nanogenerator for self-powered
+                    wireless CO₂ monitoring via fine-vibration harvesting
+                </h3>
+                <p class="publication-authors">
+                    Daniel Manaye Tiruneh*, <strong>Gyurim Jang*</strong>, Kyeongha Kwon, Hanchul Ryu
+                    <br><em>*Co-first authors</em>
+                </p>
+                <div class="publication-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Journal:</span>
+                        <span class="detail-value">Nano Energy</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Impact Factor:</span>
+                        <span class="detail-value">17.1</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Volume:</span>
+                        <span class="detail-value">138</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Published:</span>
+                        <span class="detail-value">June 2025</span>
+                    </div>
+                </div>
+                <a href="https://doi.org/10.1016/j.nanoen.2025.110872" target="_blank" class="doi-button">
+                    View Full Paper →
+                </a>
             </div>
-            <a href="https://doi.org/10.1016/j.nanoen.2025.110872" class="doi-button" target="_blank">
-                View Full Paper →
-            </a>
+        </div>
+    </section>
+
+    <!-- Future Work -->
+    <section class="future-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                <div class="section-icon">🚀</div>
+                Future Directions
+            </h2>
+            <div class="future-timeline">
+                <div class="future-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="future-icon">🌐</div>
+                    <div class="future-content">
+                        <h3 class="future-title">Multi-Sensor Integration</h3>
+                        <p class="future-desc">
+                            Expanding the system to include temperature, humidity, and VOC sensors for
+                            comprehensive environmental monitoring.
+                        </p>
+                    </div>
+                </div>
+                <div class="future-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="future-icon">🤖</div>
+                    <div class="future-content">
+                        <h3 class="future-title">Edge AI Implementation</h3>
+                        <p class="future-desc">
+                            Integrating on-device machine learning for predictive maintenance and
+                            anomaly detection in industrial environments.
+                        </p>
+                    </div>
+                </div>
+                <div class="future-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="future-icon">🏭</div>
+                    <div class="future-content">
+                        <h3 class="future-title">Industrial Deployment</h3>
+                        <p class="future-desc">
+                            Collaborating with industry partners for large-scale deployment in
+                            manufacturing facilities and smart buildings.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <script>
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+
+        // Power Generation Chart
+        const powerCtx = document.getElementById('powerChart').getContext('2d');
+        const powerChart = new Chart(powerCtx, {
+            type: 'line',
+            data: {
+                labels: ['10 Hz', '20 Hz', '30 Hz', '40 Hz', '50 Hz', '60 Hz'],
+                datasets: [{
+                    label: 'Power Output (µW)',
+                    data: [120, 180, 220, 250, 245, 240],
+                    borderColor: '#059669',
+                    backgroundColor: 'rgba(5, 150, 105, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#059669'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Power (µW)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Vibration Frequency'
+                        }
+                    }
                 }
-            });
+            }
+        });
+
+        // CO₂ Accuracy Chart
+        const accuracyCtx = document.getElementById('accuracyChart').getContext('2d');
+        const accuracyChart = new Chart(accuracyCtx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'Measured vs Reference',
+                    data: [
+                        {x: 400, y: 395},
+                        {x: 800, y: 810},
+                        {x: 1200, y: 1180},
+                        {x: 1600, y: 1615},
+                        {x: 2000, y: 1985},
+                        {x: 2400, y: 2420},
+                        {x: 2800, y: 2775},
+                        {x: 3200, y: 3230}
+                    ],
+                    backgroundColor: '#0891b2',
+                    pointRadius: 6
+                }, {
+                    label: 'Ideal',
+                    data: [
+                        {x: 0, y: 0},
+                        {x: 3500, y: 3500}
+                    ],
+                    type: 'line',
+                    borderColor: 'rgba(5, 150, 105, 0.5)',
+                    borderDash: [5, 5],
+                    pointRadius: 0,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom'
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Reference CO₂ (ppm)'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Measured CO₂ (ppm)'
+                        }
+                    }
+                }
+            }
         });
     </script>
 </body>
